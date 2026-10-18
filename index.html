@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apophis – Offline Research Harness</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-piano: #050505;
+            --text-clear: #FFFFFF;
+            --text-silver: #A0A4A8;
+            --line-silver: #4A4D50;
+            --accent-white: #F2F2F2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-piano);
+            color: var(--text-clear);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .motif-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--line-silver);
+            z-index: 1000;
+        }
+
+        .motif-text {
+            position: fixed;
+            top: 10px;
+            right: 60px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--text-silver);
+            letter-spacing: 0.1em;
+            z-index: 1000;
+        }
+
+        main {
+            padding: 120px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 24px;
+            color: var(--text-silver);
+            margin-bottom: 80px;
+            max-width: 800px;
+        }
+
+        section {
+            margin-bottom: 120px;
+            border-top: 1px solid var(--line-silver);
+            padding-top: 40px;
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 400;
+            margin-bottom: 40px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .card {
+            border-left: 1px solid var(--line-silver);
+            padding-left: 20px;
+        }
+
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: var(--text-silver);
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+            background: #111;
+            padding: 20px;
+            border: 1px solid var(--line-silver);
+            margin: 20px 0;
+            display: block;
+            color: var(--text-silver);
+        }
+
+        footer {
+            padding: 60px;
+            border-top: 1px solid var(--line-silver);
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text-silver);
+        }
+
+        a {
+            color: var(--text-clear);
+            text-decoration: none;
+            border-bottom: 1px solid var(--line-silver);
+            transition: border-color 0.3s;
+        }
+
+        a:hover {
+            border-color: var(--text-clear);
+        }
+
+        .status-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border: 1px solid var(--text-silver);
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="motif-bar"></div>
+    <div class="motif-text">APOPHIS // SYNTHETIC LAB ENVIRONMENT</div>
+
+    <main>
+        <div class="status-tag">Öffentlicher Forschungsdemonstrator</div>
+        <h1>Apophis</h1>
+        <p class="subtitle">Offline Research Harness für nachvollziehbare Identitätsentscheidungen im synthetischen Übungslabor.</p>
+
+        <section id="reproducibility">
+            <h2>Die Forschungsfrage</h2>
+            <p>Wie lassen sich einfache Rollenentscheidungen in einem synthetischen Identitätsablauf so dokumentieren, dass Testeingabe, Sollentscheidung, beobachtetes Ergebnis und Integritätsdigest reproduzierbar zusammengehören, ohne operative oder personenbezogene Daten offenzulegen?</p>
+        </section>
+
+        <section id="demonstrator">
+            <h2>Der Demonstrator</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Synthetische Rollen</h3>
+                    <p>Apophis nutzt fiktive Trainingsrollen und Demoobjekte statt realer Identitäten.</p>
+                </div>
+                <div class="card">
+                    <h3>Evidence Bundles</h3>
+                    <p>Lokale Erzeugung von fälschungssicheren Belegen durch kanonische JSON-Digests.</p>
+                </div>
+                <div class="card">
+                    <h3>Isolierte Umgebung</h3>
+                    <p>Keine Netzwerkverbindung, kein Zugriff auf externe Systeme – maximale Kontrolle.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="start">
+            <h2>Technischer Start</h2>
+            <p>Unabhängige Forschende können den Harness lokal wie folgt erproben:</p>
+            <code class="mono">
+                python -m harness.cli defence-demo<br>
+                python -m harness.cli report /tmp/apophis-defence-demo-bundle.json
+            </code>
+        </section>
+
+        <section id="contact">
+            <h2>Kontakt für Forschungskooperationen</h2>
+            <p>Wir laden Stiftungen und Forschungseinrichtungen ein, Feedback zu Reviewbarkeit und Datenminimierung zu geben.</p>
+            <p style="margin-top: 20px;">
+                E-Mail: <a href="mailto:kava140982@gmail.com">kava140982@gmail.com</a>
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <div>© Kai Valenta | kava140982@gmail.com</div>
+        <div>2026 // RESEARCH ONLY</div>
+    </footer>
+</body>
+</html>
