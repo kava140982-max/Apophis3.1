@@ -1,201 +1,428 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apophis – Offline Research Harness</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Apophis ist ein unabhängiges Forschungsdemonstrator-Vorhaben zu nachvollziehbaren digitalen Identitäts- und Nachweisabläufen anhand künstlicher Beispiele."
+    />
+    <meta name="theme-color" content="#101522" />
+    <title>Apophis — nachvollziehbare digitale Nachweise</title>
     <style>
-        :root {
-            --bg-piano: #050505;
-            --text-clear: #FFFFFF;
-            --text-silver: #A0A4A8;
-            --line-silver: #4A4D50;
-            --accent-white: #F2F2F2;
-        }
+      :root {
+        color-scheme: dark;
+        --bg: #080a0d;
+        --panel: #101318;
+        --text: #f4f5f6;
+        --muted: #b2b8c0;
+        --line: #343a42;
+        --accent: #d7e1ec;
+        --max: 1120px;
+      }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        box-sizing: border-box;
+      }
 
-        body {
-            background-color: var(--bg-piano);
-            color: var(--text-clear);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+      html {
+        scroll-behavior: smooth;
+      }
 
-        .motif-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: var(--line-silver);
-            z-index: 1000;
-        }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font:
+          16px/1.65 system-ui,
+          -apple-system,
+          "Segoe UI",
+          sans-serif;
+      }
 
-        .motif-text {
-            position: fixed;
-            top: 10px;
-            right: 60px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 12px;
-            color: var(--text-silver);
-            letter-spacing: 0.1em;
-            z-index: 1000;
-        }
+      a {
+        color: inherit;
+        text-underline-offset: 4px;
+      }
 
-        main {
-            padding: 120px 60px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+      a:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 4px;
+      }
 
-        h1 {
-            font-size: 56px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            letter-spacing: -0.02em;
-        }
+      .wrap {
+        width: min(calc(100% - 40px), var(--max));
+        margin-inline: auto;
+      }
 
-        .subtitle {
-            font-size: 24px;
-            color: var(--text-silver);
-            margin-bottom: 80px;
-            max-width: 800px;
-        }
+      .topline {
+        height: 2px;
+        background: linear-gradient(90deg, #718096, transparent 72%);
+      }
 
-        section {
-            margin-bottom: 120px;
-            border-top: 1px solid var(--line-silver);
-            padding-top: 40px;
-        }
+      .topbar {
+        padding: 22px 0;
+        border-bottom: 1px solid var(--line);
+      }
 
-        h2 {
-            font-size: 32px;
-            font-weight: 400;
-            margin-bottom: 40px;
-        }
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
 
+      .brand {
+        color: var(--text);
+        font-size: 0.9rem;
+        font-weight: 750;
+        letter-spacing: 0.16em;
+        text-decoration: none;
+      }
+
+      .navlinks {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .navlinks a {
+        color: var(--muted);
+        font-size: 0.9rem;
+        text-decoration: none;
+      }
+
+      .navlinks a:hover {
+        color: var(--text);
+      }
+
+      main {
+        padding-bottom: 48px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.35fr 0.75fr;
+        align-items: center;
+        gap: 56px;
+        padding: 92px 0 82px;
+      }
+
+      .eyebrow {
+        color: var(--muted);
+        font-size: 0.76rem;
+        font-weight: 650;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0.35em 0;
+        font-size: clamp(2.8rem, 7vw, 5.2rem);
+        font-weight: 520;
+        letter-spacing: -0.055em;
+        line-height: 1.03;
+      }
+
+      .hero-copy {
+        max-width: 700px;
+        color: var(--muted);
+        font-size: 1.15rem;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 28px;
+      }
+
+      .button {
+        display: inline-block;
+        padding: 10px 16px;
+        border: 1px solid var(--line);
+        border-radius: 2px;
+        color: var(--text);
+        text-decoration: none;
+      }
+
+      .button:hover {
+        border-color: var(--accent);
+      }
+
+      .button.primary {
+        border-color: var(--accent);
+        background: var(--accent);
+        color: #101318;
+        font-weight: 650;
+      }
+
+      .button.primary:hover {
+        background: #fff;
+      }
+
+      .note {
+        padding: 20px 22px;
+        border-left: 1px solid var(--line);
+        background: var(--panel);
+      }
+
+      .note strong {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .note p,
+      .lead {
+        color: var(--muted);
+      }
+
+      section {
+        padding: 62px 0;
+        border-top: 1px solid var(--line);
+      }
+
+      h2 {
+        margin: 0 0 14px;
+        font-size: clamp(1.8rem, 4vw, 2.6rem);
+        font-weight: 470;
+        letter-spacing: -0.03em;
+        line-height: 1.15;
+      }
+
+      h3 {
+        margin: 0.15em 0 0.45em;
+        font-size: 1.05rem;
+      }
+
+      .lead {
+        max-width: 780px;
+        margin-top: 0;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+        margin-top: 32px;
+      }
+
+      .card {
+        padding: 6px 0 6px 18px;
+        border-left: 1px solid var(--line);
+      }
+
+      .card p {
+        margin-bottom: 0;
+        color: var(--muted);
+      }
+
+      .label {
+        display: inline-block;
+        margin: 0 6px 8px 0;
+        padding: 4px 9px;
+        border: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.76rem;
+      }
+
+      .callout {
+        max-width: 900px;
+        padding: 16px 18px;
+        border-left: 2px solid #9ba9b8;
+        background: var(--panel);
+        color: var(--muted);
+      }
+
+      .contact {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 28px;
+      }
+
+      footer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 26px 0 42px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+
+      @media (max-width: 760px) {
+        .hero {
+          grid-template-columns: 1fr;
+          gap: 32px;
+          padding: 64px 0;
+        }
         .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
+          grid-template-columns: 1fr 1fr;
         }
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+        .navlinks {
+          gap: 12px 18px;
+        }
+      }
 
-        .card {
-            border-left: 1px solid var(--line-silver);
-            padding-left: 20px;
+      @media (max-width: 520px) {
+        .wrap {
+          width: min(calc(100% - 28px), var(--max));
         }
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        section {
+          padding: 46px 0;
+        }
+        .hero {
+          padding: 50px 0;
+        }
+      }
 
-        .card h3 {
-            font-size: 20px;
-            margin-bottom: 15px;
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
         }
-
-        .card p {
-            color: var(--text-silver);
-        }
-
-        .mono {
-            font-family: 'JetBrains Mono', monospace;
-            background: #111;
-            padding: 20px;
-            border: 1px solid var(--line-silver);
-            margin: 20px 0;
-            display: block;
-            color: var(--text-silver);
-        }
-
-        footer {
-            padding: 60px;
-            border-top: 1px solid var(--line-silver);
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            color: var(--text-silver);
-        }
-
-        a {
-            color: var(--text-clear);
-            text-decoration: none;
-            border-bottom: 1px solid var(--line-silver);
-            transition: border-color 0.3s;
-        }
-
-        a:hover {
-            border-color: var(--text-clear);
-        }
-
-        .status-tag {
-            display: inline-block;
-            padding: 4px 12px;
-            border: 1px solid var(--text-silver);
-            font-size: 12px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
+      }
     </style>
-</head>
-<body>
-    <div class="motif-bar"></div>
-    <div class="motif-text">APOPHIS // SYNTHETIC LAB ENVIRONMENT</div>
+  </head>
+  <body>
+    <div class="topline" aria-hidden="true"></div>
+    <header class="topbar">
+      <div class="wrap nav">
+        <a class="brand" href="#start" aria-label="Apophis Startseite"
+          >APOPHIS</a
+        >
+        <nav class="navlinks" aria-label="Hauptnavigation">
+          <a href="#anliegen">Anliegen</a>
+          <a href="#umfang">Umfang</a>
+          <a href="#integritaet">Integrität</a>
+          <a href="#kontakt">Kontakt</a>
+        </nav>
+      </div>
+    </header>
 
-    <main>
-        <div class="status-tag">Öffentlicher Forschungsdemonstrator</div>
-        <h1>Apophis</h1>
-        <p class="subtitle">Offline Research Harness für nachvollziehbare Identitätsentscheidungen im synthetischen Übungslabor.</p>
+    <main id="start" class="wrap">
+      <div class="hero">
+        <div>
+          <span class="eyebrow"
+            >Unabhängiges Forschungsvorhaben · öffentliche Projektfassung</span
+          >
+          <h1>Digitale Nachweise verständlich machen.</h1>
+          <p class="hero-copy">
+            Apophis beschäftigt sich mit der Frage, wie sich digitale
+            Identitäts- und Nachweisabläufe anhand künstlicher Beispiele
+            nachvollziehbar beschreiben und prüfen lassen.
+          </p>
+          <div class="actions">
+            <a class="button primary" href="Apophis_Alpha_2026-10-18.zip"
+              >Projektpaket herunterladen</a
+            >
+            <a class="button" href="README.md">Projektüberblick lesen</a>
+          </div>
+        </div>
+        <aside class="note">
+          <strong>Forschungsdemonstrator</strong>
+          <p>
+            Die Veröffentlichung dient der Projektvorstellung und dem fachlichen
+            Austausch. Sie enthält keine ausführbare Software und ist keine
+            produktive Anwendung.
+          </p>
+          <span class="label">Künstliche Beispiele</span>
+          <span class="label">Frühe Forschungsphase</span>
+          <span class="label">Apache-2.0-Materialien</span>
+        </aside>
+      </div>
 
-        <section id="reproducibility">
-            <h2>Die Forschungsfrage</h2>
-            <p>Wie lassen sich einfache Rollenentscheidungen in einem synthetischen Identitätsablauf so dokumentieren, dass Testeingabe, Sollentscheidung, beobachtetes Ergebnis und Integritätsdigest reproduzierbar zusammengehören, ohne operative oder personenbezogene Daten offenzulegen?</p>
-        </section>
-
-        <section id="demonstrator">
-            <h2>Der Demonstrator</h2>
-            <div class="grid">
-                <div class="card">
-                    <h3>Synthetische Rollen</h3>
-                    <p>Apophis nutzt fiktive Trainingsrollen und Demoobjekte statt realer Identitäten.</p>
-                </div>
-                <div class="card">
-                    <h3>Evidence Bundles</h3>
-                    <p>Lokale Erzeugung von fälschungssicheren Belegen durch kanonische JSON-Digests.</p>
-                </div>
-                <div class="card">
-                    <h3>Isolierte Umgebung</h3>
-                    <p>Keine Netzwerkverbindung, kein Zugriff auf externe Systeme – maximale Kontrolle.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="start">
-            <h2>Technischer Start</h2>
-            <p>Unabhängige Forschende können den Harness lokal wie folgt erproben:</p>
-            <code class="mono">
-                python -m harness.cli defence-demo<br>
-                python -m harness.cli report /tmp/apophis-defence-demo-bundle.json
-            </code>
-        </section>
-
-        <section id="contact">
-            <h2>Kontakt für Forschungskooperationen</h2>
-            <p>Wir laden Stiftungen und Forschungseinrichtungen ein, Feedback zu Reviewbarkeit und Datenminimierung zu geben.</p>
-            <p style="margin-top: 20px;">
-                E-Mail: <a href="mailto:kava140982@gmail.com">kava140982@gmail.com</a>
+      <section id="anliegen">
+        <span class="eyebrow">Anliegen</span>
+        <h2>Von der Eingabe zum nachvollziehbaren Ergebnis</h2>
+        <p class="lead">
+          Wie lassen sich Eingabe, erwartete Entscheidung und beobachtetes
+          Ergebnis so dokumentieren, dass ein Ablauf verständlich bleibt und
+          unnötige personenbezogene oder operative Daten vermieden werden?
+        </p>
+        <div class="grid">
+          <article class="card">
+            <h3>Künstliche Szenarien</h3>
+            <p>
+              Fiktive Rollen und Nachweise bilden einen sicheren Ausgangspunkt
+              für Diskussion und konzeptionelle Forschung.
             </p>
-        </section>
+          </article>
+          <article class="card">
+            <h3>Nachvollziehbare Abläufe</h3>
+            <p>
+              Die Projektidee stellt Verständlichkeit, Dokumentation und klare
+              Annahmen in den Mittelpunkt.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Verantwortungsvolle Grenzen</h3>
+            <p>
+              Die Veröffentlichung macht ihren frühen Entwicklungsstand und den
+              begrenzten Umfang transparent.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="umfang">
+        <span class="eyebrow">Veröffentlichter Umfang</span>
+        <h2>Eine transparente Projektvorstellung</h2>
+        <p class="lead">
+          Das öffentliche Paket besteht aus einer statischen Projektseite, einer
+          Kurzbeschreibung und der Lizenz. Es enthält keinen ausführbaren
+          Harness, keine Testfälle und keine Testberichte.
+        </p>
+        <p class="callout">
+          Die Projektbeschreibung ist keine Zusage einer fertigen Lösung, kein
+          Nachweis für eine unabhängige Prüfung und keine Empfehlung für den
+          Einsatz in einer konkreten Organisation. Für reale Umgebungen ist eine
+          gesonderte Bewertung durch die jeweils Verantwortlichen erforderlich.
+        </p>
+      </section>
+
+      <section id="integritaet">
+        <span class="eyebrow">Datei und Prüfsumme</span>
+        <h2>Öffentliches Projektpaket</h2>
+        <p class="lead">
+          Die SHA-256-Prüfsumme ermöglicht den Vergleich der heruntergeladenen
+          Datei mit dem veröffentlichten Byte-Stand. Sie sagt für sich allein
+          nichts über Herkunft, Sicherheit oder unabhängige Prüfung aus.
+        </p>
+        <div class="actions">
+          <a class="button primary" href="Apophis_Alpha_2026-10-18.zip"
+            >ZIP herunterladen</a
+          >
+          <a class="button" href="Apophis_Alpha_2026-10-18.zip.sha256"
+            >SHA-256-Datei ansehen</a
+          >
+          <a class="button" href="https://github.com/kava140982-max/Apophis3.1"
+            >GitHub-Repository</a
+          >
+        </div>
+      </section>
+
+      <section id="kontakt">
+        <span class="eyebrow">Kontakt</span>
+        <h2>Fachlicher Austausch</h2>
+        <p class="lead">Für Fragen und Rückmeldungen zum Forschungsvorhaben:</p>
+        <div class="contact">
+          <strong>Kai Valenta</strong>
+          <a href="mailto:kava1140982@gmail.com">kava1140982@gmail.com</a>
+        </div>
+      </section>
     </main>
 
-    <footer>
-        <div>© Kai Valenta | kava140982@gmail.com</div>
-        <div>2026 // RESEARCH ONLY</div>
+    <footer class="wrap">
+      <div>© 2026 Kai Valenta · Apophis</div>
+      <div>Unabhängiges Forschungsvorhaben · frühe Phase</div>
     </footer>
-</body>
+  </body>
 </html>
