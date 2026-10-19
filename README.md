@@ -1,5 +1,8 @@
 # Apophis — Forschungsdemonstrator
 
+[![Besuche](https://hits.sh/github.com/kava140982-max/Apophis3.1.svg?label=Besuche)](https://hits.sh/github.com/kava140982-max/Apophis3.1/)
+
+
 **Öffentliche Projektfassung · 18. Oktober 2026**
 
 Apophis ist ein frühes, unabhängiges Forschungsvorhaben. Es beschäftigt sich mit der Frage, wie sich digitale Identitäts- und Nachweisabläufe anhand künstlicher Beispiele nachvollziehbar beschreiben und prüfen lassen.
